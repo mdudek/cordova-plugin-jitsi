@@ -1,7 +1,7 @@
 repositories{
 	jcenter()
 	maven {
-		url "file:/tmp/repo"
+ 		url "file:${System.getenv("HOME")}/repo"
 	}
 	maven {
 		url "https://maven.google.com"
