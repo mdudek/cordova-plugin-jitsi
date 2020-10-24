@@ -49,8 +49,7 @@
 
 	<header-file src="src/ios/JitsiMeetView.h" />
 	<header-file src="src/ios/JitsiMeetViewDelegate.h" />
-        <header-file src="src/ios/JitsiPlugin.h" />
-        <source-file src="src/ios/JitsiPlugin.mm" />
+  <source-file src="src/ios/JitsiPlugin.swift" />
 
         <source-file src="./framework/JitsiMeet.framework" target-dir="lib" framework="true" />
 	<source-file src="./framework/WebRTC.framework"    target-dir="lib" framework="true" />
