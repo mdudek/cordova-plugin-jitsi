@@ -1,7 +1,9 @@
+String home = System.getenv("HOME")+ "/repo";
+
 repositories{
 	jcenter()
 	maven {
- 		url "file:${System.getenv("HOME")}/repo"
+ 		url home
 	}
 	configurations.all {
 		resolutionStrategy {
