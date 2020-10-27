@@ -9,7 +9,7 @@ The original repo is here: https://github.com/agorum/cordova-plugin-jitsi
 
 # Extra notes:
 
-Requires building of jitsi-meet into $HOME/repo using ``` ./android/scripts/release-sdk.sh ~/repo ```jitsi-meet sdk
+Requires building of jitsi-meet into mavenLocal default repo using ``` ./android/scripts/release-sdk.sh ~/.m2/repository ```(jitsi-meet-sdk)
 
 ## iOS Installation
 On iOS/Xcode you will need to manually specify the WebRTC and JitsiMeet frameworks manually to be embedded.
