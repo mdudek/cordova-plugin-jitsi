@@ -1,10 +1,11 @@
 String home = System.getenv("HOME")+ "/repo";
 
 repositories{
-	jcenter()
 	maven {
- 		url home
+		url home
 	}
+	jcenter()
+
 	configurations.all {
 		resolutionStrategy {
 			force "com.google.android.gms:play-services-basement:15.0.1"
