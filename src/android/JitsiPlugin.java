@@ -145,6 +145,12 @@ public class JitsiPlugin extends CordovaPlugin
             .setFeatureFlag("calendar.enabled", false)
             .setFeatureFlag("pip.enabled", false) // disable pip to open video in app
             .setFeatureFlag("call-integration.enabled", false) // Fix - Exception 'call aborted - there is another call in progress'
+            .setFeatureFlag("live-streaming.enabled", false)
+            .setFeatureFlag("meeting-password.enabled", false)
+            .setFeatureFlag("raise-hand.enabled", false)
+            .setFeatureFlag("recording.enabled", false)
+            .setFeatureFlag("video-share.enabled", false)
+            .setFeatureFlag("add-people.enabled", false)
             .setWelcomePageEnabled(false).build();
 
         JitsiMeetPluginActivity.launchActivity(cordova.getActivity(), options);
