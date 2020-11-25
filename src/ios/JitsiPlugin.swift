@@ -19,18 +19,28 @@ class JitsiPlugin : CDVPlugin, JitsiMeetViewDelegate {
         let serverUrl:String = command.arguments[0] as! String
         let room: String = command.arguments[1] as! String
         let isAudioOnly: Bool = command.arguments[2] as! Bool
-        
+        let subject: String = command.arguments[3] as! String
+        let userName: String = command.arguments[4] as! String
+
         jitsiMeetView = JitsiMeetView.init(frame: self.viewController.view.frame)
         jitsiMeetView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         jitsiMeetView.delegate = self
 
+        let userInfo = JitsiMeetUserInfo.init(userName: userName andEmail: nil andAvatar: nil);
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.welcomePageEnabled = false
             builder.serverURL = URL(string: serverUrl)
-            builder.room = room;
-            builder.subject = "";
-            builder.audioOnly = isAudioOnly;
-            builder.setFeatureFlag("pip.enabled", withBoolean: true)
+            builder.room = room
+            builder.subject = subject
+            builder.userInfo = userInfo
+            builder.audioOnly = isAudioOnly
+            builder.audioMuted = false
+            builder.videoMuted = false
+            builder.setFeatureFlag("pip.enabled", withBoolean: false)
+            builder.setFeatureFlag("chat.enabled", withBoolean: false)
+            builder.setFeatureFlag("invite.enabled", withBoolean: false)
+            builder.setFeatureFlag("calendar.enabled", withBoolean: false)
+            builder.setFeatureFlag("call-integration.enabled", withBoolean: false)
         }
         jitsiMeetView.join(options)
         
@@ -47,6 +57,9 @@ class JitsiPlugin : CDVPlugin, JitsiMeetViewDelegate {
         }
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "DESTROYED")
         self.emit(callbackId, result: pluginResult!)
+    }
+
+    @objc(backButtonPressed:) func backButtonPressed(_ command: CDVInvokedUrlCommand) {
     }
     
     func _onJitsiMeetViewDelegateEvent(name: NSString, _ data: [AnyHashable : Any]!) {

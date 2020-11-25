@@ -18,6 +18,7 @@ import java.net.URL;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import org.jitsi.meet.sdk.JitsiMeetActivityDelegate;
 import org.jitsi.meet.sdk.JitsiMeetActivityInterface;
+import org.jitsi.meet.sdk.JitsiMeetUserInfo;
 import android.view.View;
 
 import org.apache.cordova.CordovaWebView;
@@ -63,7 +64,9 @@ public class JitsiPlugin extends CordovaPlugin
       String serverUrl = args.getString(0);
       String roomId = args.getString(1);
       Boolean audioOnly = args.getBoolean(2);
-      this.join(serverUrl, roomId, audioOnly);
+      String subject = args.getString(3);
+      String userName = args.getString(4);
+      this.join(serverUrl, roomId, audioOnly, subject, userName);
       return true;
     } else if (action.equals("destroy")) {
       this.destroy(callbackContext);
@@ -115,7 +118,7 @@ public class JitsiPlugin extends CordovaPlugin
     }
   }
 
-  private void join(final String serverUrl, final String roomId, final Boolean audioOnly) {
+  private void join(final String serverUrl, final String roomId, final Boolean audioOnly, final String subject, final String userName) {
     Log.e(TAG, "join called! Server: " + serverUrl + ", room : " + roomId);
 
     cordova.getActivity().runOnUiThread(new Runnable() {
@@ -129,13 +132,19 @@ public class JitsiPlugin extends CordovaPlugin
           throw new RuntimeException("Invalid server URL!");
         }
 
+        JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
+        userInfo.setDisplayName(userName);
+
         JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
             .setRoom(serverUrlObject.getProtocol() + "://" + serverUrlObject.getHost() + "/" +roomId)
-            .setSubject(" ")
+            .setSubject(subject != null ? subject : " ")
+            .setUserInfo(userInfo)
             .setAudioOnly(audioOnly)
             .setFeatureFlag("chat.enabled", false)
             .setFeatureFlag("invite.enabled", false)
             .setFeatureFlag("calendar.enabled", false)
+            .setFeatureFlag("pip.enabled", false) // disable pip to open video in app
+            .setFeatureFlag("call-integration.enabled", false) // Fix - Exception 'call aborted - there is another call in progress'
             .setWelcomePageEnabled(false).build();
 
         JitsiMeetPluginActivity.launchActivity(cordova.getActivity(), options);

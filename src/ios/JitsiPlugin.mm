@@ -1,6 +1,6 @@
 #import "JitsiPlugin.h"
-#import "JitsiMeet.framework/Headers/JitsiMeetConferenceOptions.h"
-
+#import <JitsiMeet/JitsiMeetView.h>
+#import <JitsiMeet/JitsiMeetUserInfo.h>
 
 @implementation JitsiPlugin
 
@@ -10,18 +10,31 @@ CDVPluginResult *pluginResult = nil;
     NSString* serverUrl = [command.arguments objectAtIndex:0];
     NSString* room = [command.arguments objectAtIndex:1];
     Boolean isAudioOnly = [[command.arguments objectAtIndex:2] boolValue];
+    NSString* subject = [command.arguments objectAtIndex:3];
+    NSString* userName = [command.arguments objectAtIndex:4];
     commandBack = command;
     jitsiMeetView = [[JitsiMeetView alloc] initWithFrame:self.viewController.view.frame];
     jitsiMeetView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     jitsiMeetView.delegate = self;
     
+    JitsiMeetUserInfo* userInfo = [[JitsiMeetUserInfo alloc] initWithDisplayName:userName andEmail: nil andAvatar: nil];
+
     JitsiMeetConferenceOptions *options = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {
         builder.serverURL = [NSURL URLWithString: serverUrl];
         builder.room = room;
         builder.subject = @" ";
         builder.welcomePageEnabled = NO;
         builder.audioOnly = isAudioOnly;
-        [builder setFeatureFlag:@"pip.enabled" withBoolean:true];
+        builder.subject = subject;
+        builder.userInfo = userInfo;
+        builder.welcomePageEnabled = NO;
+        builder.audioMuted = NO;
+        builder.videoMuted = NO;
+        [builder setFeatureFlag:@"chat.enabled" withBoolean:false];
+        [builder setFeatureFlag:@"invite.enabled" withBoolean:false];
+        [builder setFeatureFlag:@"calendar.enabled" withBoolean:false];
+        [builder setFeatureFlag:@"pip.enabled" withBoolean:false];
+        [builder setFeatureFlag:@"call-integration.enabled" withBoolean:false];
     }];
     
     [jitsiMeetView join: options];
@@ -36,6 +49,10 @@ CDVPluginResult *pluginResult = nil;
     }
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"DESTROYED"];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)backButtonPressed:(CDVInvokedUrlCommand *)command {
+
 }
 
 void _onJitsiMeetViewDelegateEvent(NSString *name, NSDictionary *data) {

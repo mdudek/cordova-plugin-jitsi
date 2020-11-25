@@ -45,7 +45,7 @@ Example of how to select them here: https://github.com/seamlink-dev/cordova-plug
 ```
 const roomId = 'your-custom-room-id';
 
-jitsiplugin.join('https://meet.jit.si/', roomId, false, function (data) {
+jitsiplugin.join('https://meet.jit.si/', roomId, false, 'My room', 'User A', function (data) {
     //CONFERENCE_WILL_JOIN
     //CONFERENCE_JOINED
     //CONFERENCE_TERMINATED
