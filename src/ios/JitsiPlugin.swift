@@ -26,7 +26,7 @@ class JitsiPlugin : CDVPlugin, JitsiMeetViewDelegate {
         jitsiMeetView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         jitsiMeetView.delegate = self
 
-        let userInfo = JitsiMeetUserInfo.init(userName: userName andEmail: nil andAvatar: nil);
+        let userInfo = JitsiMeetUserInfo.init(displayName: userName, andEmail: nil, andAvatar: nil );
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.welcomePageEnabled = false
             builder.serverURL = URL(string: serverUrl)
@@ -41,6 +41,12 @@ class JitsiPlugin : CDVPlugin, JitsiMeetViewDelegate {
             builder.setFeatureFlag("invite.enabled", withBoolean: false)
             builder.setFeatureFlag("calendar.enabled", withBoolean: false)
             builder.setFeatureFlag("call-integration.enabled", withBoolean: false)
+            builder.setFeatureFlag("live-streaming.enabled", withBoolean: false)
+            builder.setFeatureFlag("meeting-password.enabled", withBoolean: false)
+            builder.setFeatureFlag("raise-hand.enabled", withBoolean: false)
+            builder.setFeatureFlag("recording.enabled", withBoolean: false)
+            builder.setFeatureFlag("video-share.enabled", withBoolean: false)
+            builder.setFeatureFlag("add-people.enabled", withBoolean: false)
         }
         jitsiMeetView.join(options)
         
