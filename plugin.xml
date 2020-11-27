@@ -49,7 +49,8 @@
             </feature>
         </config-file>
 
-        <source-file src="src/ios/JitsiPlugin.swift"/>
+        <header-file src="src/ios/JitsiPlugin.h" />
+        <source-file src="src/ios/JitsiPlugin.mm"/>
 		<pod name="JitsiMeetSDK" version="2.11.0" />
     </platform>
 </plugin>
