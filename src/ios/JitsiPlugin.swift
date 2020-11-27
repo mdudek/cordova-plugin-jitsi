@@ -19,8 +19,8 @@ class JitsiPlugin : CDVPlugin, JitsiMeetViewDelegate {
         let serverUrl:String = command.arguments[0] as! String
         let room: String = command.arguments[1] as! String
         let isAudioOnly: Bool = command.arguments[2] as! Bool
-        let subject: String = command.arguments[3] as! String
-        let userName: String = command.arguments[4] as! String
+        let subject: String? = command.arguments[3] as? String
+        let userName: String? = command.arguments[4] as? String
 
         jitsiMeetView = JitsiMeetView.init(frame: self.viewController.view.frame)
         jitsiMeetView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
