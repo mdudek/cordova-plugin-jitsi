@@ -8,10 +8,11 @@ import com.cordova.plugin.jitsi.JitsiPlugin;//.JITSI_PLUGIN_TAG
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class JitsiMeetPluginActivity extends JitsiMeetActivity {
-    
+
     public static void launchActivity(Context context, JitsiMeetConferenceOptions options) {
         Intent intent = new Intent(context, JitsiMeetPluginActivity.class);
         intent.setAction("org.jitsi.meet.CONFERENCE");
@@ -33,20 +34,20 @@ public class JitsiMeetPluginActivity extends JitsiMeetActivity {
     }
 
     @Override
-    public void onConferenceJoined(Map<String, Object> data) {
+    protected void onConferenceJoined(HashMap<String, Object> extraData) {
         JitsiPluginModel.getInstance().changeState("onConferenceJoined");
-        super.onConferenceJoined(data);
+        super.onConferenceJoined(extraData);
     }
 
     @Override
-    public void onConferenceTerminated(Map<String, Object> data) {
+    protected void onConferenceTerminated(HashMap<String, Object> extraData) {
         JitsiPluginModel.getInstance().changeState("onConferenceTerminated");
-        super.onConferenceTerminated(data);
+        super.onConferenceTerminated(extraData);
     }
 
     @Override
-    public void onConferenceWillJoin(Map<String, Object> data) {
+    protected void onConferenceWillJoin(HashMap<String, Object> extraData) {
         JitsiPluginModel.getInstance().changeState("onConferenceWillJoin");
-        super.onConferenceWillJoin(data);
+        super.onConferenceWillJoin(extraData);
     }
 }
