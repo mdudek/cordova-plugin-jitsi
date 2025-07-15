@@ -51,7 +51,7 @@ public class JitsiMeetPluginActivity extends JitsiMeetActivity {
     }
 
     @Override
-    protected void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
         if (!isInPictureInPictureMode) {
             this.startActivity(new Intent(this, getClass())
