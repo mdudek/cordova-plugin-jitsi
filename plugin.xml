@@ -6,7 +6,7 @@
         <clobbers target='jitsiplugin'/>
     </js-module>
 
-	<dependency id="cordova-plugin-cocoapod-support"/>
+    <dependency id="cordova-plugin-cocoapod-support"/>
 
     <platform name='android'>
         <config-file parent='/*' target='res/xml/config.xml'>
@@ -24,12 +24,16 @@
             <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
             <uses-permission android:name="android.permission.WAKE_LOCK"/>
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+            <uses-permission android:name="android.permission.CAPTURE_VIDEO_OUTPUT" />
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity
                     android:name="com.cordova.plugin.jitsi.JitsiMeetPluginActivity"
                     android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
                     android:launchMode="singleTask"
+                    android:theme="@style/Theme.AppCompat"
                     android:resizeableActivity="true"
                     android:supportsPictureInPicture="true"
                     android:windowSoftInputMode="adjustResize">
@@ -51,6 +55,6 @@
 
         <header-file src="src/ios/JitsiPlugin.h" />
         <source-file src="src/ios/JitsiPlugin.mm"/>
-		<pod name="JitsiMeetSDK" version="2.11.0" />
+        <pod name="JitsiMeetSDK" version="2.11.0" />
     </platform>
 </plugin>

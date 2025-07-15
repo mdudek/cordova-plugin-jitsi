@@ -15,9 +15,6 @@ repositories{
 			force "com.google.android.gms:play-services-basement:15.0.1"
 			force "com.google.android.gms:play-services-tasks:15.0.1"
 		}
-		resolutionStrategy.dependencySubstitution {
-			substitute module("com.yqritc:android-scalablevideoview:1.0.4") using module("com.github.thang2162:Android-ScalableVideoView:1.1.1") because "com.yqritc:android-scalablevideoview is not available in jcentral"
-		}
 	}
 }
 android {
@@ -44,15 +41,15 @@ android {
 	}
 	
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
 	}
 
 }
 dependencies {
 	//org.jitsi.react:jitsi-meet-sdk:2.+ org.jitsi.react:jitsi-meet-sdk:1.9.0@aar
-	implementation ('org.jitsi.react:jitsi-meet-sdk:3.+') {
-		transitive = true;
+	implementation ('org.jitsi.react:jitsi-meet-sdk:11.3.1') {
+	    transitive = true
 	}
 
 	//implementation "com.android.support:appcompat-v7:27.1.0"	

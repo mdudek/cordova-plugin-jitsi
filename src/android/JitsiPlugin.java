@@ -151,7 +151,9 @@ public class JitsiPlugin extends CordovaPlugin
             .setFeatureFlag("recording.enabled", false)
             .setFeatureFlag("video-share.enabled", false)
             .setFeatureFlag("add-people.enabled", false)
-            .setWelcomePageEnabled(false).build();
+            .setFeatureFlag("welcomepage.enabled", false)
+            .setFeatureFlag("prejoinpage.enabled", false)
+            .build();
 
         JitsiMeetPluginActivity.launchActivity(cordova.getActivity(), options);
       }
