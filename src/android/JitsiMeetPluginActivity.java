@@ -9,7 +9,6 @@ import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class JitsiMeetPluginActivity extends JitsiMeetActivity {
 
@@ -49,5 +48,14 @@ public class JitsiMeetPluginActivity extends JitsiMeetActivity {
     protected void onConferenceWillJoin(HashMap<String, Object> extraData) {
         JitsiPluginModel.getInstance().changeState("onConferenceWillJoin");
         super.onConferenceWillJoin(extraData);
+    }
+
+    @Override
+    protected void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode);
+        if (!isInPictureInPictureMode) {
+            this.startActivity(new Intent(this, getClass())
+                    .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+        }
     }
 }
