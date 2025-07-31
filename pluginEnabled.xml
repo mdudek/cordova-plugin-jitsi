@@ -6,6 +6,8 @@
         <clobbers target='jitsiplugin'/>
     </js-module>
 
+    <dependency id="cordova-plugin-cocoapod-support"/>
+
     <platform name='android'>
         <config-file parent='/*' target='res/xml/config.xml'>
             <feature name='JitsiPlugin'>
